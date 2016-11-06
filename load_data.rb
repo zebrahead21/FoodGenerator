@@ -16,35 +16,30 @@ class DataRecord
 end
 
 
-    recipes = Elasticsearch::Persistence::Repository.new do
-      client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
-      index :recipes
-      type  :data_record
-    end
-    recipes.create_index! force: true
+  recipes = Elasticsearch::Persistence::Repository.new do
+    client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
+    index :recipes
+    type  :data_record
+  end
+  recipes.create_index! force: true
 
+  ingredients = Elasticsearch::Persistence::Repository.new do
+    client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
+    index :ingredients
+    type  :data_record
+  end
+  ingredients.create_index! force: true
 
-    ingredients = Elasticsearch::Persistence::Repository.new do
-      client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
-      index :ingredients
-      type  :data_record
-    end
-    ingredients.create_index! force: true
-
- 	r_id_relationships = Elasticsearch::Persistence::Repository.new do
-      client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
-      index :r_id_relationships
-      type  :data_record
-    end
-    r_id_relationships.create_index! force: true
-
+  r_id_relationships = Elasticsearch::Persistence::Repository.new do
+    client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
+    index :r_id_relationships
+    type  :data_record
+  end
+  r_id_relationships.create_index! force: true
 
 
 
-    
-
-
-	CSV.read('/home/camelia/Projects/WebDev/recipes.csv').each do |current_recipe_list|
+  	CSV.read('/home/camelia/Projects/WebDev/recipes.csv').each do |current_recipe_list|
 		current_recipe_id = Digest::SHA256.hexdigest(current_recipe_list[0])
 		recipes.save(
       	{ id: current_recipe_id, recipes_description: current_recipe_list[0] }
