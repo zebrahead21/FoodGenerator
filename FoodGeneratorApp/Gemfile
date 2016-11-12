@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+
+gem 'rails'
+gem 'thin'
+gem 'sqlite3'
+gem 'tzinfo-data'
+gem 'rbczmq'
+gem 'iruby'
+gem 'spring', group: :development
+gem 'listen', group: :development
+
+gem 'elasticsearch-persistence', :require => 'elasticsearch/persistence'
