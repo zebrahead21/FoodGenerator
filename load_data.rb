@@ -1,6 +1,6 @@
-require 'elasticsearch/persistence'
 require 'digest'
 require 'csv'
+require 'elasticsearch/persistence'
 
 
 class DataRecord
@@ -39,21 +39,21 @@ end
 
 
 
-  	CSV.read('/home/camelia/Projects/WebDev/recipes.csv').each do |current_recipe_list|
+  	CSV.read('/home/camelia/Projects/WebDev/FoodGenerator/recipes.csv').each do |current_recipe_list|
 		current_recipe_id = Digest::SHA256.hexdigest(current_recipe_list[0])
 		recipes.save(
       	{ id: current_recipe_id, recipes_description: current_recipe_list[0] }
     	)
 	end
 
-	CSV.read('/home/camelia/Projects/WebDev/ingredients.csv').each do |current_ingredient_list|
+	CSV.read('/home/camelia/Projects/WebDev/FoodGenerator/ingredients.csv').each do |current_ingredient_list|
 		current_ingredient_id = Digest::SHA256.hexdigest(current_ingredient_list[0])
 		ingredients.save(
       	{ id: current_ingredient_id, recipes_description: current_ingredient_list[0] }
     	)
 	end
 
-	CSV.read('/home/camelia/Projects/WebDev/ingredient_recipes_relationships.csv').each do |i_r_rel_list|
+	CSV.read('/home/camelia/Projects/WebDev/FoodGenerator/ingredient_recipes_relationships.csv').each do |i_r_rel_list|
 		line = i_r_rel_list[0]
 		i_r_rel_id = Digest::SHA256.hexdigest(line)
 		after_split = line.split('|')
