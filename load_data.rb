@@ -53,7 +53,7 @@ end
 
   CSV.read('testing_csv/recipes_ingredients_relationships_testing.csv',
     {:col_sep => '|'}).map { |row| relationships_recipe_ingredients.save({ 
-                                                      'id_relationship': Digest::SHA256.hexdigest(row[0]), 
+                                                      'id': Digest::SHA256.hexdigest(row[0]), 
                                                       'quantity': row[1], 
                                                       'unit_measure': row[2],
                                                       'semi_preparation': row[3],
