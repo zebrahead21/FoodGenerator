@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
  
 module FoodGeneratorApp
 	class Application < Rails::Application
-    config.recipes = Elasticsearch::Persistence::Repository.new do
+    	config.recipes = Elasticsearch::Persistence::Repository.new do
 		  client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
 		  index :recipes
 		  type  :data_record
@@ -21,9 +21,9 @@ module FoodGeneratorApp
 			type  :data_record
 		end
 
-		config.relationships_recipe_ingredients = Elasticsearch::Persistence::Repository.new do
+		config.relationships = Elasticsearch::Persistence::Repository.new do
 		  client Elasticsearch::Client.new url: 'http://localhost:9200', log: true
-		  index :relationships_recipe_ingredients
+		  index :relationships
 		  type  :data_record
 		end
 	end
