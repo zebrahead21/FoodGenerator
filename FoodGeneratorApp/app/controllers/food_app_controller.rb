@@ -3,25 +3,14 @@ class FoodAppController < ActionController::Base
 	# @@relationships = Rails.configuration.relationships
 	
 
-	def main_page
-
-	end
-
-	def ingredient
-		# @item = @@ingredient.find(params[:id].to_i).to_hash
-		
-
-		
-		render :json => session[:ingredient]
-
-	end
 
 	def putting_ingredient
-
-		session[:ingredient] << params[:ingredient]
-		
-
-		render :json => session[:ingredient]
+		session[:ingredients] ||= []
+		session[:ingredients] << params[:ingredient_name]
+		puts
+		puts session[:ingredients]
+		puts
+		render :json => session[:ingredients]
 	end
 
 

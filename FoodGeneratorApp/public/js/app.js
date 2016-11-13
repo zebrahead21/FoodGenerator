@@ -3,6 +3,7 @@
 var app = angular.module('AngularFoodGeneratorApp', []);
 
 app.controller('AngularFoodGeneratorController', ['$scope', '$http', function($scope, $http) {
+  $scope.ingredients = [];
 
   function posting(ingredient_name) {
     $http.post('/putting_ingredient', { 'ingredient_name': ingredient_name })

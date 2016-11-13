@@ -9,17 +9,16 @@
 
 <body ng-controller="AngularFoodGeneratorController"
 	  ng-class="{'whiterthanusual': currentlyTalkingToTheServer}">
-<h1>Food Generator App</h1>
-<form ng-submit="posting(ingredient_name);" >
-	<input type="text" ng-model="ingredient_name">
-	<button name="">Find ingredient</button>
 	
+	<h1>Food Generator App</h1>
+	<form ng-submit="posting(ingredient_name);" >
+		<input type="text" ng-model="ingredient_name">
+		<button name="">Find ingredient</button>
+	</form>
 
-</form>
-<div ng-repeat="ingredient in ingredients">
-	{{ ingredient }}
-</div>
-
+	<div ng-repeat="ingredient in ingredients">
+		{{ ingredient }}
+	</div>
 
 </body>
 
