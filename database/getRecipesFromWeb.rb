@@ -2,57 +2,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-#Extrag elementele atipice din lista de ingrediente
-
-blackSheepIngredients = ingredientsListRawXML
-blackSheepIngredients.xpath('.//h4').remove
-blackSheepIngredients.css('li').each do |li|
-	if li.at_css('a')
-		li.remove
-	end
-end
-
-blackSheepIngredients = blackSheepIngredients.css('li').text()
-blackSheepIngredients.gsub!(/^ */, "")
-blackSheepIngredients = blackSheepIngredients.split("\n")
-blackSheepIngredients.reject! { |blacksheep| blacksheep.empty? }
-
-###################################################################
-
-#Retrive info about what to do with the ingredients before cooking
-ingredientsInfoBeforeCooking = page.xpath('//div[@data-module="ingredients"]//ul') 
-ingredientsInfoBeforeCooking.xpath('.//span').remove
-ingredientsInfoBeforeCooking.xpath('.//h4').remove
-
-ingredientsInfoBeforeCooking.css("a").each do |a|
-	a.replace a.inner_html
-end
-
-ingredientsInfoBeforeCooking.css("li").each do |li|
-	li.replace li.inner_html
-end
-
-ingredientsInfoBeforeCooking = ingredientsInfoBeforeCooking.text()
-ingredientsInfoBeforeCooking.gsub!(/^[ \n] */, "")
-ingredientsInfoBeforeCooking = ingredientsInfoBeforeCooking.split("\n")
-ingredientsInfoBeforeCooking.reject! { |info| info.empty? }
-ingredientsInfoBeforeCooking -= blackSheepIngredients
-ingredientsInfoBeforeCooking.map! { |info| 
-	if info =~ /^[a-z -]* \([a-z -]*\)$/
-		info.gsub(/^[a-z -]* /, '').gsub(/^\(/, '').gsub(/\)$/, '')
-	else
-		if info =~ /^[a-z -]*, /
-			info.gsub(/^[a-z -]*, /, '')
-		else 
-			""
-		end
-	end
-}
-
-#########################################################
-
-
-
 
 ###################################################################
 
