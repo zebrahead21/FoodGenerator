@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="AngularFoodGeneratorApp">
+
+<head>
+  <title>Page Title</title>
+  <script src="js/angular.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body ng-controller="AngularFoodGeneratorController"
+	  ng-class="{'whiterthanusual': currentlyTalkingToTheServer}">
+<h1>Food Generator App</h1>
+<form ng-submit="posting(ingredient_name);" >
+	<input type="text" ng-model="ingredient_name">
+	<button name="">Find ingredient</button>
+	
+
+</form>
+<div ng-repeat="ingredient in ingredients">
+	{{ ingredient }}
+</div>
+
+
+</body>
+
+</html>
