@@ -2,61 +2,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'csv'
 
-
-
-=begin
-#cantitatile in ordine
-ingredientsQuantities = page.xpath('//div[@data-module="ingredients"]//ul//li//span').to_a
-ingredientsQuantities.map! { |quantity| quantity.text}
-puts ingredientsQuantities
-
-=begin (STERG H4)
-ingredientsUnitsRaw = page.xpath('//div[@data-module="ingredients"]//ul//li')
-ingredientsUnitsRaw.search('.//h4').remove
-#puts ingredientsUnitsRaw
-=end (STERG H4)
-
-=begin
-unitatile de masura a ingredientelor in stadiul final pentru reteta curenta
-ingredientsUnitsUniq = ingredientsUnitsUniq - blackSheepIngredients
-=end
-
-#puts ingredientsListRawXML
-
-#Retrive quantities with units 
-#ingredientsListRaw.xpath('./li[./span[not(text())]]').remove
-#ingredientsQuantities = ingredientsListRaw
-
-
-#puts ingredientsListRaw
-=begin
-ingredientsQuantities = ingredientsListRaw.xpath('./li/span').to_a
-ingredientsQuantities.map! { |quantity| quantity.text }
-ingredientsUnits = ingredientsListRaw.xpath('./li/text()').to_a
-ingredientsUnits.map! { |unit| unit.to_s.gsub(/^ */,'')}
-ingredientsUnits = ingredientsUnits.select {|unit| unit =~ /^[ a-z]/ or unit == ''}
-
-puts ingredientsListRaw
-##################################################################
-
-# trebuie sa zipuiesti ingredientsUnits cu ingredientsQuantities !!!!!
-
-#Retrive data ingredient attribute from li
-ingredientsWithQuantitiesDataIngredientID = ingredientsListRaw.xpath('./li/@data-ingredient')
-ingredientsWithQuantitiesDataIngredientID.map { |attr|
-	attr.value
-}.compact
-
-#puts "INGREDIENTS UNITS:"
-#puts ingredientsUnits
-#puts "INGREDIENTS QUANTITIES"
-#puts ingredientsQuantities
-#puts "INGREDIENTS WITH QUANTITIES DATA INGREDIENT ID:"
-#puts ingredientsWithQuantitiesDataIngredientID
-
-####################################################################
-
-
 #Extrag elementele atipice din lista de ingrediente
 
 blackSheepIngredients = ingredientsListRawXML
@@ -72,8 +17,6 @@ blackSheepIngredients.gsub!(/^ */, "")
 blackSheepIngredients = blackSheepIngredients.split("\n")
 blackSheepIngredients.reject! { |blacksheep| blacksheep.empty? }
 
-#puts "BLACKSHEEP INGREDIENTS:"
-#puts blackSheepIngredients
 ###################################################################
 
 #Retrive info about what to do with the ingredients before cooking
@@ -94,7 +37,6 @@ ingredientsInfoBeforeCooking.gsub!(/^[ \n] */, "")
 ingredientsInfoBeforeCooking = ingredientsInfoBeforeCooking.split("\n")
 ingredientsInfoBeforeCooking.reject! { |info| info.empty? }
 ingredientsInfoBeforeCooking -= blackSheepIngredients
-#puts ingredientsInfoBeforeCooking
 ingredientsInfoBeforeCooking.map! { |info| 
 	if info =~ /^[a-z -]* \([a-z -]*\)$/
 		info.gsub(/^[a-z -]* /, '').gsub(/^\(/, '').gsub(/\)$/, '')
@@ -107,15 +49,12 @@ ingredientsInfoBeforeCooking.map! { |info|
 	end
 }
 
-#puts "INGREDIENTS INFO BEFORE COOKING:"
-#puts ingredientsInfoBeforeCooking
 #########################################################
 
 
 
 
 ###################################################################
-=end
 
 class Array
   def to_csv(csv_filename="hash.csv")
