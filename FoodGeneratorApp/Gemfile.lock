@@ -137,7 +137,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    rbczmq (1.7.9)
     ruby_dep (1.5.0)
     spring (2.0.0)
       activesupport (>= 4.2)
@@ -176,7 +175,6 @@ DEPENDENCIES
   iruby
   listen
   rails
-  rbczmq
   spring
   sqlite3
   thin

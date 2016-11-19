@@ -1,8 +1,18 @@
 class FoodAppController < ActionController::Base
-	# @@recipes = Rails.configuration.recipes
-	# @@relationships = Rails.configuration.relationships
-	
 
+	@@recipes = Rails.configuration.recipes
+	@@relationships = Rails.configuration.relationships
+	@@ingredients = Rails.configuration.ingredients	
+		
+
+
+
+
+	def retriveIngredients()
+		ingredients = @@ingredients.search('ingredient_name:' + params[:ingredientHolder]).to_a.map(&:to_hash)	
+		render :json => ingredients
+	end	
+	
 
 	def putting_ingredient
 		session[:ingredients] ||= []
@@ -12,12 +22,5 @@ class FoodAppController < ActionController::Base
 		puts
 		render :json => session[:ingredients]
 	end
-
-
-	
-
-
-
-
 
 end
