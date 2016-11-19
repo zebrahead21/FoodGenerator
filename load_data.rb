@@ -42,7 +42,7 @@ hashmap = {}
 
 CSV.read('database/relationships.csv',
   {:col_sep => '|'}).map { |row| hashmap[row[2].split('#')[0]] ||= []
-                                 hashmap[row[2].split('#')[0]] << row[2].split('#')[1] 
+                                 hashmap[row[2].split('#')[0]] << row[2].split('#')[1].gsub('+','_') 
                                  relationships.save({ 
                                         'id': Digest::SHA256.hexdigest(row[2]),
                                         'ingredient_id': row[2].split('#')[1], 
