@@ -7,7 +7,7 @@
 		<script src="js/angular.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-
+			var pos = 0;
 			// jQuery este un constructor, in tipul celor create in JavaScript, si apelandu-l sub forma jQuery(window), incapsuleaza obiectul window,
 			// pentru a putea fi prelucrat precum un obiect jQuery.
 			jQuery(document).ready(function(){
@@ -79,8 +79,13 @@
 			});
 		</script>
 		<style>
+			body{
+				width:80%;
+      	 			margin-left:auto;
+        			margin-right:auto;
+			}
 			*{ 
-			       /**
+			      /**
 				* this asterix is a kind of asterix from bash,
 				* which means that select everything it finds in the html page
 				*/
@@ -148,8 +153,8 @@
 				</div>
 			</div>
 		</form>
-		<div ng-show="recipes.length">
-			<a ng-repeat="recipe in recipes" href="{{ http://localhost:3000/recipe/recipe['id'] }}">{{ recipe }}</a>
-		</div>
+		<ul ng-show="recipes.length" style="position: relative; margin-left: 350px; margin-top: 50px;" >
+			<li ng-repeat="recipe in recipes" ><a style="display: block;" href={{"http://localhost:3000/recipe/" + recipe['id'] }}>{{ recipe['recipe_name'] }}</a></li>
+		</ul>
 	</body>
 </html>

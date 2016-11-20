@@ -65,16 +65,10 @@ app.controller('AngularFoodGeneratorController', ['$scope', '$http', '$timeout',
 
   function posting(ingredient_name) {
     var keys = Object.keys($scope.choosedIngredients);
-    //console.log(keys);
     $http.post('/getIngredientsList', { 'ingredients_list': keys })
          .success(function(data, status, headers, config) {
            $scope.recipes = data;
-           console.log($scope.recipes[0]['id']);/////////////////////////////////////////////////////////////////////////
-           //$scope.$apply();
          });
-
-    //for (recipe in $scope.recipes) 
-  	  console.log($scope.recipes[0]['recipe_name']);
   }
 
   $scope.posting = posting; 
