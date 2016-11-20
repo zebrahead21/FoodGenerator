@@ -154,7 +154,7 @@
 			</div>
 		</form>
 		<ul ng-show="recipes.length" style="position: relative; margin-left: 350px; margin-top: 50px;" >
-			<li ng-repeat="recipe in recipes" ><a style="display: block;" href={{"http://localhost:3000/recipe/" + recipe['id'] }}>{{ recipe['recipe_name'] }}</a></li>
+			<li ng-repeat="recipe in recipes" ><a style="display: block;" href="http://localhost:3000/recipe/{{ recipe['id'] }}">{{ recipe['recipe_name'] }}</a></li>
 		</ul>
 	</body>
 </html>
