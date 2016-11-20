@@ -4,8 +4,6 @@ gem 'rails'
 gem 'thin'
 gem 'sqlite3'
 gem 'tzinfo-data'
-gem 'rbczmq'
-gem 'iruby'
 gem 'spring', group: :development
 gem 'listen', group: :development
 

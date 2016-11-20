@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html ng-app="AngularFoodGeneratorApp">
+	<head>
+		<title>FoodGeneratorApp</title>
+		<link rel="stylesheet" type="text/css" href="#">
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/angular.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+
+			// jQuery este un constructor, in tipul celor create in JavaScript, si apelandu-l sub forma jQuery(window), incapsuleaza obiectul window,
+			// pentru a putea fi prelucrat precum un obiect jQuery.
+			jQuery(document).ready(function(){
+				jQuery(window).keydown(function(e){	// e este eventul care tocmai s-a intamplat, function(e){..} este event handler. 
+					if(window.scope.ingredientsFound == 1){	
+						li = jQuery('.ingredientInList');	// selectez aici toate elementele care au clasa "ingredientInList". Se pune "." 
+											// in fata deoarece clasele in CSS sunt de obicei definite ca ".[nume_clasa]".
+						window.scope.ingredientsFound = 0; // Se va face 0 imediat dupa ce s-a preluat continutul trimis de server catre browser,
+										   // nu am fi facut 0 variabila,
+										   //deoarece, aceasta preluare de continut se face in event handlerul pentru "keypress",
+										   // iar asta ar fi insemnat ca daca
+										   // dupa prelucrarea continutului trimis de server, am fi prelucrat acest continut ori
+										   // de cate ori apasam pe o tasta.
+
+						pos = -1;
+					}
+
+					// Aici urmeaza logica event handlerului.				
+					if(e.which === 13 && pos >= 0){ 	
+						if(window.scope.choosedIngredients[window.scope.ingredients[pos]['id']] !== undefined){
+							
+							delete	window.scope.choosedIngredients[window.scope.ingredients[pos]['id']];
+							li.eq(pos).removeClass('choosed');
+							li.eq(pos).addClass('selected');
+							window.scope.$apply();
+						}
+						else if(window.scope.choosedIngredients[window.scope.ingredients[pos]['id']] === undefined){
+							window.scope.choosedIngredients[window.scope.ingredients[pos]['id']] = window.scope.ingredients[pos]['ingredient_name'];						li.eq(pos).addClass('choosed');
+							window.scope.$apply();
+						}					
+					}
+					else if(e.which === 40){
+
+						pos = (pos + 1);
+						li.eq(pos).addClass('selected');
+						if(pos - 1 < 0){
+							li.eq(li.length - 1).removeClass('selected');
+						}
+						else if(pos == li.length){
+							li.eq(pos - 1).removeClass('selected');						
+							li.eq(0).addClass('selected');
+							pos = 0;
+						}	
+						else 
+							li.eq(pos - 1).removeClass('selected');			
+			
+					}else if(e.which === 38){
+						
+						pos = pos - 1;			
+						if(pos == -2){
+							li.eq(li.length - 1).addClass('selected');
+							li.eq(0).removeClass('selected');
+							pos = li.length - 1;									
+							
+						}
+						else if (pos == -1){
+							li.eq(0).removeClass('selected');
+							li.eq(li.length - 1).addClass('selected');
+							pos = li.length - 1;
+						}
+						else{
+												
+							li.eq(pos).addClass('selected');								
+							li.eq(pos + 1).removeClass('selected');
+						}					
+					}
+				});
+
+			});
+		</script>
+		<style>
+			*{ 
+			       /**
+				* this asterix is a kind of asterix from bash,
+				* which means that select everything it finds in the html page
+				*/
+
+				margin: 0;
+				padding: 0;
+			}
+			
+			#searchRecipesForm {
+				position: relative;
+				margin-left: 25%;
+				margin-top: 10%;
+			}
+
+			.ingredientHolder {
+				height: 20px;
+				margin-right: 40px;
+				width: 450px;
+				margin-top: 0px;
+			}	
+			
+			.ingredientInList {
+				padding-left: 5px;
+				padding-bottom: 2px;
+			}
+			.ingredientInList:first-child{
+				margin-top: 5px;
+
+			}
+			
+			.selected {
+				background-color: yellow;
+			}
+			.choosed {
+				background-color: green;
+				color: #FFFFFF;			
+			}
+			.choosedIngredientsList {
+				border: 1px solid black;
+			}
+			.choosedIngredientsList:first-child{
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body ng-controller='AngularFoodGeneratorController'>
+	
+		<form ng-submit="retriveRecipes()" id="searchRecipesForm" onkeypress="return event.keyCode != 13;">
+			<h1 id="appTitle" style="position: relative; margin-left: 8%; margin-bottom: 10px;"> Food Generator App </h1>
+			<button style="diplay: block; margin-left: 520px; ">Search for recipes!</button>	
+			<div class="just" style="clear: left; display: inline-block; margin-right: 20px;">
+				<input ng-model="ingredientHolder" ng-change="retriveIngredients(ingredientHolder);" type="text" name="ingredientHolder" class="ingredientHolder" autocomplete="off">
+				<p style="display: inline; margin-left: -28px;">-->></p>
+			</div>
+			<div style="postion: absolute; clear: left; display: inline-block; width: auto; ">				
+				<div class="choosedIngredientsList {{ choosedIngredientID  }}" ng-repeat="(choosedIngredientID, choosedIngredientValue) in choosedIngredients">
+					<p style="padding-left:5px; font-weight: bold; display:inline-block; margin-right: 3px;">{{ choosedIngredientValue }}</p>
+					<button style="" ng-click="removeThisIngredient(choosedIngredientID);">X</button>			
+				</div>
+			</div>			
+			<div style="background-color: #FFFFF0; display: table; margin-left: 1px;">
+				<div ng-repeat="ingredient in ingredients" ng-class="{ 'choosed': choosedIngredients[ingredient['id']] }" class="ingredientInList">
+					<p>{{ ingredient.ingredient_name }}</p>
+				</div>
+			</div>
+		</form>
+		
+	</body>
+</html>
