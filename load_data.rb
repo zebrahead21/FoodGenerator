@@ -45,15 +45,15 @@ CSV.read('database/relationships.csv',
                                  hashmap[row[2].split('#')[0]] << row[2].split('#')[1].gsub('+','_').gsub('-','_') 
                                  relationships.save({ 
                                         'id': Digest::SHA256.hexdigest(row[2]),
-                                        'ingredient_id': row[2].split('#')[1], 
-                                        'recipe_id': row[2].split('#')[0], 
+                                        'ingredient_id': row[2].split('#')[1].gsub('+','_').gsub('-','_'), 
+                                        'recipe_id': row[2].split('#')[0].gsub('-','_'), 
                                         'ingredient_details': row[1],
                                         'structured_ingredient': row[0] })} 
 
 
 CSV.read('database/recipes.csv',
   {:col_sep => '|'}).map { |row| recipes.save({ 
-                                        'id': row[0],
+                                        'id': row[0].gsub('-','_'),
                                         'all_ingredients': hashmap[row[0]].join('|'),
                                         'recipe_name': row[1], 
                                         'preparation': row[2] }) }
