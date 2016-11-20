@@ -73,6 +73,16 @@ app.controller('AngularFoodGeneratorController', ['$scope', '$http', '$timeout',
 
   $scope.posting = posting; 
 
+  function posting_all(all_ingredients) {
+  	$http.post('/getAllIngredients', { })
+  		 .success(function(data, status, headers, config) {
+           $scope.all_ingredients = data;
+    });
+  }
+  $scope.posting_all = posting_all;
+
+  
+
 
 }]);
 

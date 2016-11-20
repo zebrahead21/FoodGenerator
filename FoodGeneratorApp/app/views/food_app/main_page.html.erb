@@ -133,7 +133,10 @@
 	</head>
 
 	<body ng-controller='AngularFoodGeneratorController'>
-	
+
+		<button ng-click="posting_all();" style="diplay: block; margin-left: 520px; ">Show all ingredients!</button>	
+		<div ng-repeat="ingredient in all_ingredients"> {{ingredient['ingredient_name']}} </div> 
+
 		<form ng-submit="posting()" id="searchRecipesForm" onkeypress="return event.keyCode != 13;">
 			<h1 id="appTitle" style="position: relative; margin-left: 8%; margin-bottom: 10px;"> Food Generator App </h1>
 			<button style="diplay: block; margin-left: 520px; ">Search for recipes!</button>	

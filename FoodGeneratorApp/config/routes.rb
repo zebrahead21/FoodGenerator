@@ -4,5 +4,5 @@ Rails.application.routes.draw do
   get '/recipe/:id' => 'food_app#recipeDetailedView'
 
   post '/getIngredientsList' => 'food_app#search_recipes'
-
+  post '/getAllIngredients' => 'food_app#getAllIngredients'
 end

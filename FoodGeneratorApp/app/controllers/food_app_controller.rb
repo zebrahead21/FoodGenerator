@@ -10,7 +10,8 @@ class FoodAppController < ActionController::Base
 	@@recipes_found = []
 	@ingredients_prep = {}
 	@visible_recipe = 0
-	@relationships_matched
+	@relationships_matched = 0
+	@@all_ingredients = 0
 
 
 	def retriveIngredients()
@@ -44,6 +45,14 @@ class FoodAppController < ActionController::Base
 
 		@relationships_matched = @@relationships.search('recipe_id:' + params[:id]).to_a.map(&:to_hash)	
 		render 'recipe'
+	end
+
+	def getAllIngredients
+		@@all_ingredients = @@ingredients.search('*', {size: 1000} ).to_a.map(&:to_hash)	
+		
+		puts
+		puts @@all_ingredients.length
+		render json: @@all_ingredients
 	end
 
 end
