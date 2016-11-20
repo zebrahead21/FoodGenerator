@@ -12,6 +12,7 @@ app.controller('AngularFoodGeneratorController', ['$scope', '$http', '$timeout',
 	$scope.ingredientHolder = null; // aici este ng-model-ul care monitorizeaza #searchRecipesForm.input[name="ingredientHolder"]
 	$scope.ingredientsFound = 0; // o variabila care este 0 in cazul in care nu s-a efectuat nicio cerere de sugestii, ori 1, in cazul
 															// in care s-a efectuat o cere si urmeaza sa inregistram raspunsul si sa-l afisam sub forma de lista de sugestii in browser.
+	$scope.recipes = [];
 
 	$scope.retriveRecipes = function(recipeIngredients){
 		$http.get('/recipes.json')
@@ -63,16 +64,22 @@ app.controller('AngularFoodGeneratorController', ['$scope', '$http', '$timeout',
 	};	
 
   function posting(ingredient_name) {
-    $http.post('/putting_ingredient', { 'ingredient_name': ingredient_name })
+    var keys = Object.keys($scope.choosedIngredients);
+    //console.log(keys);
+    $http.post('/getIngredientsList', { 'ingredients_list': keys })
          .success(function(data, status, headers, config) {
-           $scope.ingredients = data;
+           $scope.recipes = data;
+           console.log($scope.recipes[0]['id']);/////////////////////////////////////////////////////////////////////////
+           //$scope.$apply();
          });
+
+    //for (recipe in $scope.recipes) 
+  	  console.log($scope.recipes[0]['recipe_name']);
   }
-  
-	$scope.posting = posting; 
+
+  $scope.posting = posting; 
 
 
 }]);
-
 
 

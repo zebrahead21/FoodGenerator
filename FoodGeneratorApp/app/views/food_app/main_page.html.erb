@@ -129,7 +129,7 @@
 
 	<body ng-controller='AngularFoodGeneratorController'>
 	
-		<form ng-submit="retriveRecipes()" id="searchRecipesForm" onkeypress="return event.keyCode != 13;">
+		<form ng-submit="posting()" id="searchRecipesForm" onkeypress="return event.keyCode != 13;">
 			<h1 id="appTitle" style="position: relative; margin-left: 8%; margin-bottom: 10px;"> Food Generator App </h1>
 			<button style="diplay: block; margin-left: 520px; ">Search for recipes!</button>	
 			<div class="just" style="clear: left; display: inline-block; margin-right: 20px;">
@@ -148,6 +148,8 @@
 				</div>
 			</div>
 		</form>
-		
+		<div ng-show="recipes.length">
+			<a ng-repeat="recipe in recipes" href="{{ http://localhost:3000/recipe/recipe['id'] }}">{{ recipe }}</a>
+		</div>
 	</body>
 </html>
