@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title><%= @visible_recipe['recipe_name'] =%></title>
+		<style>
+			body{
+				width: 80%;	
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.title{
+				text-align: center;
+			}	
+			#ingredients{
+				display: inline-block;
+				margin-right: 100px;
+				margin-left: 100px;
+			}			
+			#directions{
+				position: absolute;
+				display: inline-block;
+				width: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 class="title"><%= @visible_recipe['recipe_name'] =%></h1>
+		<div id="ingredients">
+			<ul>
+				<h4>Ingredients</h4>
+				<% @relationships_matched.each do |relation| %>
+				<li> <%= relation['ingredient_details'] =%></li>
+				<% end %>				
+			</ul>
+		</div>
+		<div id="directions">
+			<h4>Directions</h4>
+			<p style="inline-block;"><%= @visible_recipe['preparation'] =%></p>
+		</div>
+	</body>
+</html>
